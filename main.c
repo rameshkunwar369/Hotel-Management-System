@@ -89,14 +89,13 @@ void bookARoom()
     } while (strcmp(continueToAdd, "y") == 0);
 }
 
-
 void viewCustomerRecord()
 {
+
     FILE *f;
     int i;
     f = fopen("add.txt", "r");
-    // if ((f = fopen("add.txt", "r")) == NULL)
-    //     exit(0);
+
     system("cls");
     printf("ROOM    ");
     printf("NAME\t ");
@@ -110,12 +109,8 @@ void viewCustomerRecord()
         printf("-");
     while (fread(&s, sizeof(s), 1, f) == 1)
     {
-        /*printf("ROOMNUMBER :\t%s\n",s.roomnumber);
-        printf("NAME:\t%s\n",,s.name);
-        printf("ADDRESS:\t%s\n",s.address);
-        printf("PHONENUMBER:\t%s\n",s.phonenumber);
-        printf("NATIONALITY \n");*/
-        printf("\n%d \t%s \t\t%s \t\t%s \t%s  \t%s  \t     %s  \t  ", s.roomNo, s.name, s.address, s.phoneNumber, s.nationality, s.email, s.period);
+
+        printf("\n%d \t%s \t\t%s \t%s \t%s  \t%s  \t     %s  \t  ", s.roomNo, s.name, s.address, s.phoneNumber, s.nationality, s.email, s.period);
     }
     printf("\n");
     for (i = 0; i < 118; i++)
@@ -123,18 +118,21 @@ void viewCustomerRecord()
 
     fclose(f);
     getch();
+    mainMenu();
 }
 
 void search()
 {
     system("cls");
+    // searchCode();
     FILE *f;
     int roomnumber;
     int flag = 1;
     f = fopen("add.txt", "r+");
 
-    printf("Enter Room number of the customer to search its details: \n");
+    printf("\nEnter Room number of the customer to search its details: ");
     scanf("%d", &roomnumber);
+    printf("\n");
     while (fread(&s, sizeof(s), 1, f) == 1)
     {
         if (s.roomNo == roomnumber)
@@ -149,16 +147,19 @@ void search()
             printf("\nEmail:\t%s", s.email);
             printf("\nPeriod:\t%s", s.period);
             // printf("\nArrival date:\t%s",s.arrivaldate);
+            printf("\n");
             flag = 0;
             break;
         }
+        printf("\n");
     }
     if (flag == 1)
     {
-        printf("\n\tRequested Customer could not be found!");
+        printf("\n\tRequested Customer could not be found!\n");
     }
-    getch();
     fclose(f);
+    getch();
+    mainMenu();
 }
 void mainMenu()
 {
@@ -169,21 +170,17 @@ void mainMenu()
     printf("\t================================  HOTEL MANAGEMENT SYSTEM  ================================\n");
     printf("\n");
 
-    // mainScreenOption();
     int ch;
-    // while (1)
-    // {
+
     printf("\n\n");
     printf(" \n Enter 1 -> Book a room");
     printf("\n------------------------");
     printf(" \n Enter 2 -> View Customer Record");
     printf("\n----------------------------------");
-    // printf(" \n Enter 3 -> Delete Customer Record");
-    // printf("\n-----------------------------------");
+
     printf(" \n Enter 3 -> Search Customer Record");
     printf("\n-----------------------------------");
-    printf(" \n Enter 4 -> Edit Customer Record");
-    printf("\n-----------------------");
+
     printf(" \n Enter 0 -> Exit");
     printf("\n-----------------");
     printf("\n");
@@ -194,7 +191,7 @@ void mainMenu()
     switch (ch)
     {
     case 0:
-        // exit(0);
+        exit(0);
         break;
     case 1:
         bookARoom();
@@ -203,13 +200,8 @@ void mainMenu()
         viewCustomerRecord();
         break;
     case 3:
-        // searchCustomerRecord();
-        search();
-        break;
-        // searchCustomerRecord();
 
-    case 4:
-        // editRecord();
+        search();
         break;
 
     default:
